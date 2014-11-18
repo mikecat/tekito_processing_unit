@@ -1,0 +1,155 @@
+`include "adder.v"
+`include "bitcalc.v"
+`include "subcalc.v"
+`include "program_counter.v"
+`include "register.v"
+// `include "selecter.v"
+`include "selecter4.v"
+`include "regwrite_controller.v"
+`include "writedata_sel.v"
+
+module TEKITO_PROCESSING_UNIT(
+RESET, CLOCK, MEMORY_ADDR, MEMORY_DATA, INPUT0, INPUT1, OUTPUT0, OUTPUT1);
+	input        RESET;
+	input        CLOCK;
+	output [5:0] MEMORY_ADDR;
+	input  [7:0] MEMORY_DATA;
+	input  [3:0] INPUT0;
+	input  [3:0] INPUT1;
+	output [3:0] OUTPUT0;
+	output [3:0] OUTPUT1;
+
+	wire   [5:0] ADDR_IN;
+	wire         ADDR_WRITE;
+	reg          FLAG;
+
+	wire   [3:0] R0_OUT;
+	wire   [3:0] R1_OUT;
+	wire   [3:0] R2_OUT;
+	wire   [3:0] R3_OUT;
+	wire   [3:0] MAIN_REG;
+	wire   [3:0] SUB_REG;
+	wire   [3:0] REGWRITE_DATA;
+	wire   [3:0] REGWRITE_SEL;
+
+	wire   [3:0] EXTIN_SELECTED;
+	wire   [1:0] EXTOUT_WRITE;
+	wire         EXTOUT_WRITE_EN;
+
+	wire   [3:0] BITCALC_OUT;
+	wire   [3:0] ADDER_OUT;
+	wire   [3:0] SUBCALC_OUT;
+	wire         BITCALC_ISZERO;
+	wire         ADDER_CARRY;
+	wire         SUBCALC_FLAG;
+
+	// プログラムカウンタ
+	PROGRAM_COUNTER PC (
+		.RESET(RESET), .CLOCK(CLOCK),
+		.ADDR_IN(ADDR_IN),
+		.ADDR_WRITE(ADDR_WRITE),
+		.ADDR_OUT(MEMORY_ADDR));
+
+	// レジスタ
+	REGISTER R0 (
+		.RESET(RESET), .CLOCK(CLOCK),
+		.DATA_IN(REGWRITE_DATA),
+		.DATA_WRITE(REGWRITE_SEL[0]),
+		.DATA_OUT(R0_OUT));
+	REGISTER R1 (
+		.RESET(RESET), .CLOCK(CLOCK),
+		.DATA_IN(REGWRITE_DATA),
+		.DATA_WRITE(REGWRITE_SEL[1]),
+		.DATA_OUT(R1_OUT));
+	REGISTER R2 (
+		.RESET(RESET), .CLOCK(CLOCK),
+		.DATA_IN(REGWRITE_DATA),
+		.DATA_WRITE(REGWRITE_SEL[2]),
+		.DATA_OUT(R2_OUT));
+	REGISTER R3 (
+		.RESET(RESET), .CLOCK(CLOCK),
+		.DATA_IN(REGWRITE_DATA),
+		.DATA_WRITE(REGWRITE_SEL[3]),
+		.DATA_OUT(R3_OUT));
+
+	// 計算用レジスタデータ
+	SELECTER4 MAIN_REG_SEL (
+		.INPUT0(R0_OUT), .INPUT1(R1_OUT),
+		.INPUT2(R2_OUT), .INPUT3(R3_OUT),
+		.SELECT(MEMORY_DATA[1:0]),
+		.OUTPUT(MAIN_REG));
+	SELECTER4 SUB_REG_SEL (
+		.INPUT0(R0_OUT), .INPUT1(R1_OUT),
+		.INPUT2(R2_OUT), .INPUT3(R3_OUT),
+		.SELECT(MEMORY_DATA[3:2]),
+		.OUTPUT(SUB_REG));
+
+	// レジスタ更新用制御
+	REGWRITE_CONTROLLER WRITECON (
+		.POS(MEMORY_DATA[1:0]),
+		.WRITE(REGWRITE_SEL));
+
+	// 外部入出力
+	REGISTER EXT_OUT0 (
+		.RESET(RESET), .CLOCK(CLOCK),
+		.DATA_IN(MAIN_REG),
+		.DATA_WRITE(EXTOUT_WRITE[0]),
+		.DATA_OUT(OUTPUT0));
+	REGISTER EXT_OUT1 (
+		.RESET(RESET), .CLOCK(CLOCK),
+		.DATA_IN(MAIN_REG),
+		.DATA_WRITE(EXTOUT_WRITE[1]),
+		.DATA_OUT(OUTPUT1));
+	SELECTER EXTIN_SEL (
+		.INPUT0(INPUT0), .INPUT1(INPUT1),
+		.SELECT(MEMORY_DATA[2]), .OUTPUT(EXTIN_SELECTED));
+
+	// 計算システム
+	BITCALC BC (
+		.INPUT1(SUB_REG), .INPUT2(MAIN_REG),
+		.KIND(MEMORY_DATA[5:4]),
+		.OUTPUT(BITCALC_OUT),
+		.IS_ZERO(BITCALC_ISZERO));
+	ADDER ADD (
+		.INPUT1(MAIN_REG), .INPUT2(SUB_REG),
+		.DOSUB(MEMORY_DATA[4]),
+		.OUTPUT(ADDER_OUT), .CARRY(ADDER_CARRY));
+	SUBCALC SUBC (
+		.INPUT(MAIN_REG), .KIND(MEMORY_DATA[3:2]),
+		.OUTPUT(SUBCALC_OUT), .FLAG(SUBCALC_FLAG));
+	WRITEDATA_SEL WDSEL (
+		.ORDER(MEMORY_DATA),
+		.BC(BITCALC_OUT), .ADD(ADDER_OUT),
+		.SUBC(SUBCALC_OUT), .EXT(EXTIN_SELECTED),
+		.REG(MAIN_REG), .OUTPUT(REGWRITE_DATA));
+
+	// 命令11xxxxxx、フラグONならジャンプ
+	assign ADDR_IN = MEMORY_DATA[5:0];
+	assign ADDR_WRITE = MEMORY_DATA[7] & MEMORY_DATA[6] & FLAG;
+	// 命令10111xxxなら外部出力書き込み
+	assign EXTOUT_WRITE_EN = (MEMORY_DATA[7:3] == 5'b10111);
+	assign EXTOUT_WRITE[0] = EXTOUT_WRITE_EN & (~MEMORY_DATA[2]);
+	assign EXTOUT_WRITE[1] = EXTOUT_WRITE_EN & MEMORY_DATA[2];
+
+	// フラグ管理
+	always @(~RESET) begin
+		FLAG <= 1'b1;
+	end
+	always @(posedge CLOCK) begin
+		if (RESET) begin
+			FLAG <= MEMORY_DATA[7] ? (
+				MEMORY_DATA[6] ? 1'b1 : FLAG
+			) : (
+				MEMORY_DATA[6] ? (
+					MEMORY_DATA[5] ? (
+						MEMORY_DATA[4] ? FLAG : SUBCALC_FLAG
+					) : ADDER_CARRY
+				) : (
+					MEMORY_DATA[5] ? BITCALC_ISZERO :
+						(MEMORY_DATA[4] ? 1'b1 : FLAG)
+				)
+			);
+		end
+	end
+
+endmodule
