@@ -1,0 +1,76 @@
+module TEKITO_PROCESSING_UNIT(RESET,CLK,IN0,IN1,OUT0,OUT1,MEM_ADDR,MEM_INPUT);
+	input        RESET;
+	input        CLK;
+	input  [3:0] IN0;
+	input  [3:0] IN1;
+	output [3:0] OUT0;
+	output [3:0] OUT1;
+	output [5:0] MEM_ADDR;
+	input  [7:0] MEM_INPUT;
+
+	reg    [3:0] OUT0;
+	reg    [3:0] OUT1;
+	wire   [5:0] MEM_ADDR;
+	
+	reg          FLG;
+	wire   [3:0] MAIN_REG;
+	wire   [3:0] SUB_REG;
+	wire   [3:0] REG_INPUT;
+	wire   [3:0] BIT_OUTPUT;
+	wire   [3:0] ADDER_OUTPUT;
+	wire   [3:0] EXTIN_OUTPUT;
+	wire   [3:0] NEGSHIFT_OUTPUT;
+	wire         BIT_FLG_OUTPUT;
+	wire         ADDER_FLG_OUTPUT;
+	wire         NEGSHIFT_FLG_OUTPUT;
+	wire         FLG_SEL_OUTPUT;
+	wire         PC_IN_ENABLE;
+
+	// もしかしたらタイミングの関係で壊れることがあるかも…？
+	assign EXTIN_OUTPUT = MEM_INPUT[4] ? IN1 : IN0;
+
+	PROGRAM_COUNTER PC (
+		.IN(MEM_INPUT[5:0]), .IN_ENABLE(PC_IN_ENABLE),
+		.RESET(RESET), .CLK(CLK), .OUT(MEM_ADDR)
+	);
+	REGISTER REG (
+		.IN(REG_INPUT), .MAIN_SEL(MEM_INPUT[1:0]), .SUB_SEL(MEM_INPUT[3:2]),
+		.RESET(RESET), .CLK(CLK), .MAIN_OUT(MAIN_REG), .SUB_OUT(SUB_REG)
+	);
+	REG_INPUT_SELECTER REGSEL (
+		.IN_MAIN(MAIN_REG), .IN_BIT(BIT_OUTPUT), .IN_ADDER(ADDER_OUTPUT),
+		.IN_EXT(EXTIN_OUTPUT), .IN_NEGSHIFT(NEGSHIFT_OUTPUT),
+		.INST(MEM_INPUT), .OUT(REG_INPUT)
+	);
+	FLAG_INPUT_SELECTER FLAGSEL (
+		.IN_MAIN(FLG), .IN_BIT(BIT_FLG_OUTPUT), .IN_ADDER(ADDER_FLG_OUTPUT),
+		.IN_NEGSHIFT(NEGSHIFT_FLG_OUTPUT),
+		.INST(MEM_INPUT), .OUT(FLG_SEL_OUTPUT)
+	);
+	BIT_CALC BC (
+		.IN1(MAIN_REG), .IN2(SUB_REG), .SEL(MEM_INPUT[5:4]),
+		.OUT(BIT_OUTPUT), .FLG_IN(FLG), .FLG_OUT(BIT_FLG_OUTPUT)
+	);
+	ADDER ADD (
+		.IN1(MAIN_REG), .IN2(SUB_REG), .OUT(ADDER_OUTPUT),
+		.SEL(MEM_INPUT[5:4]), .FLG(ADDER_FLG_OUTPUT)
+	);
+	assign NEGSHIFT_OUTPUT =
+		MEM_INPUT[4] ? {1'b0,MAIN_REG[3:1]} : (~MAIN_REG);
+	assign NEGSHIFT_FLG_OUTPUT = MEM_INPUT[4] ? 1'b1 : MAIN_REG[0];
+
+	assign PC_IN_ENABLE = FLG & MEM_INPUT[7] & MEM_INPUT[6];
+
+	always @(~RESET) begin
+		FLG <= 1'b1;
+		OUT0 <= 4'b0;
+		OUT1 <= 4'b0;
+	end
+	always @(posedge CLK) begin
+		FLG <= RESET ? FLG_SEL_OUTPUT : 1'b1;
+		OUT0 <= RESET ?
+			(MEMORY_INPUT[7:2] == 6'b011011 ? MAIN_REG : OUT0) : 4'b0;
+		OUT1 <= RESET ?
+			(MEMORY_INPUT[7:2] == 6'b011111 ? MAIN_REG : OUT1) : 4'b0;
+	end
+endmodule;
