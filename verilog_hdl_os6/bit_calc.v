@@ -1,10 +1,13 @@
 module BIT_CALC(IN1,IN2,SEL,OUT,FLG_IN,FLG_OUT);
-	input [3:0] IN1;
-	input [3:0] IN2;
-	input [1:0] SEL;
+	input  [3:0] IN1;
+	input  [3:0] IN2;
+	input  [1:0] SEL;
 	output [3:0] OUT;
-	input FLG_IN;
-	output FLG_OUT;
+	input        FLG_IN;
+	output       FLG_OUT;
+
+	wire   [3:0] OUT;
+	wire         FLG_OUT;
 
 	assign OUT = SEL[1] ?
 		(SEL[0] ? (IN1 ^ IN2) : (IN1 & IN2)) :
