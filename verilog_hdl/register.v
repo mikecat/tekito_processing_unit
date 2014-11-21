@@ -1,9 +1,9 @@
-/* ���W�X�^
- * RESET      : �񓯊����Z�b�g 0�Ń��Z�b�g
- * CLOCK      : �N���b�N �����オ��Ń��[�h
- * DATA_IN    : ���[�h����l
- * DATA_WRITE : �N���b�N�����オ�莞0�Ȃ炻�̂܂܁A1�Ȃ烍�[�h
- * DATA_OUT   : �f�[�^�o��
+/* レジスタ
+ * RESET      : 非同期リセット 0でリセット
+ * CLOCK      : クロック 立ち上がりでロード
+ * DATA_IN    : ロードする値
+ * DATA_WRITE : クロック立ち上がり時0ならそのまま、1ならロード
+ * DATA_OUT   : データ出力
  */
 module REGISTER(RESET, CLOCK, DATA_IN, DATA_WRITE, DATA_OUT);
 	input        RESET;
@@ -14,12 +14,12 @@ module REGISTER(RESET, CLOCK, DATA_IN, DATA_WRITE, DATA_OUT);
 
 	reg    [3:0] DATA_OUT;
 
-	// �񓯊����Z�b�g
+	// 非同期リセット
 	always @(~RESET) begin
 		DATA_OUT <= 4'b0;
 	end
 
-	// �f�[�^�X�V
+	// データ更新
 	always @(posedge CLOCK) begin
 		if (RESET) begin
 			DATA_OUT <= DATA_WRITE ? DATA_IN : DATA_OUT;

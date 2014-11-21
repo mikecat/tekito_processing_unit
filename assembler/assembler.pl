@@ -39,36 +39,36 @@ for (my $i = 0; $i < @definition_array; $i++) {
 	}
 }
 
-# ˆê“x“ü—Í‚ğ“Ç‚İAƒ‰ƒxƒ‹‚ğ“o˜^‚·‚é
+# ä¸€åº¦å…¥åŠ›ã‚’èª­ã¿ã€ãƒ©ãƒ™ãƒ«ã‚’ç™»éŒ²ã™ã‚‹
 my $counter = 0;
 while (my $line = <STDIN>) {
 	chomp($line);
 	my @dummy;
-	# s“ª‚Ì‹ó”’‚ğØ‚é
+	# è¡Œé ­ã®ç©ºç™½ã‚’åˆ‡ã‚‹
 	$line =~ s/^[ \t]+//;
-	# ƒRƒƒ“ƒg‚ğØ‚é (¡‰ñ‚Í•¶š—ñ‚Íˆµ‚í‚È‚¢)
+	# ã‚³ãƒ¡ãƒ³ãƒˆã‚’åˆ‡ã‚‹ (ä»Šå›ã¯æ–‡å­—åˆ—ã¯æ‰±ã‚ãªã„)
 	($line, @dummy) = split(/;/, $line);
 	($line, @dummy) = split(/\/\//, $line);
 	($line, @dummy) = split(/#/, $line);
 	($line, @dummy) = split(/'/, $line);
-	# ƒ‰ƒxƒ‹‚ğ“o˜^‚·‚é
+	# ãƒ©ãƒ™ãƒ«ã‚’ç™»éŒ²ã™ã‚‹
 	if (index($line, ":") >= 0) {
 		my $label = "";
 		$line =~ s/^(.*?):[ \t]*/$label=$1,""/e;
 		$labels{$label} = $counter;
 	}
 	if ($line eq "") {next;}
-	# ˆÊ’u‚Æ–½—ß‚ğ“o˜^‚·‚é
+	# ä½ç½®ã¨å‘½ä»¤ã‚’ç™»éŒ²ã™ã‚‹
 	$line =~ s/\t/ /g;
 	my $raw_line = $line;
 	$line =~ s/,/ /g;
 	$line =~ s/ +/ /g;
 	push(@input, "$counter\t$line\t$raw_line");
-	# –½—ß‚ÌˆÊ’u‚ği‚ß‚é
+	# å‘½ä»¤ã®ä½ç½®ã‚’é€²ã‚ã‚‹
 	$counter++;
 }
 
-# ƒwƒbƒ_
+# ãƒ˜ãƒƒãƒ€
 print "module MEMORY(ADDR, DATA);\n";
 print "\tinput  [5:0] ADDR;\n";
 print "\toutput [7:0] DATA;\n";
@@ -77,7 +77,7 @@ print "\twire   [7:0] DATA;\n";
 print "\n";
 print "\tassign DATA =\n";
 
-# –½—ß‚ğo—Í‚·‚é
+# å‘½ä»¤ã‚’å‡ºåŠ›ã™ã‚‹
 for (my $i = 0; $i < @input; $i++) {
 	my ($addr, $order, $raw_line) = split(/\t/, $input[$i]);
 	my @order_set = split(/ /, $order);
@@ -90,7 +90,7 @@ for (my $i = 0; $i < @input; $i++) {
 	for (my $i =1; $i < @order_set && $i < @order_desc_list; $i++) {
 		my $data = "";
 		if ($order_desc_list[$i] =~ /^A+$/) {
-			# ƒAƒhƒŒƒX: ƒ‰ƒxƒ‹‚ğ”½‰f‚·‚é
+			# ã‚¢ãƒ‰ãƒ¬ã‚¹: ãƒ©ãƒ™ãƒ«ã‚’åæ˜ ã™ã‚‹
 			my $addr = $labels{$order_set[$i]};
 			if (defined($addr)) {
 				$data = &str2bin($addr, length($order_desc_list[$i]));
@@ -116,7 +116,7 @@ for (my $i = 0; $i < @input; $i++) {
 	print "\t\tADDR == 6'b" . str2bin($addr, 6) . " ? 8'b$order_out : // $raw_line\n";
 }
 
-# ƒtƒbƒ^‚ğo—Í‚·‚é
+# ãƒ•ãƒƒã‚¿ã‚’å‡ºåŠ›ã™ã‚‹
 print "\t\t8'b00000000\n";
 print "\t;\n";
 print "\n";

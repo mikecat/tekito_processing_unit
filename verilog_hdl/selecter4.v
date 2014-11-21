@@ -1,12 +1,12 @@
 `include "selecter.v"
 
-/* 4“ü—ÍƒZƒŒƒNƒ^
- * INPUT0 : “ü—Í0
- * INPUT1 : “ü—Í1
- * INPUT2 : “ü—Í2
- * INPUT3 : “ü—Í3
- * SELECT : ‘I‘ð
- * OUTPUT : o—Í
+/* 4å…¥åŠ›ã‚»ãƒ¬ã‚¯ã‚¿
+ * INPUT0 : å…¥åŠ›0
+ * INPUT1 : å…¥åŠ›1
+ * INPUT2 : å…¥åŠ›2
+ * INPUT3 : å…¥åŠ›3
+ * SELECT : é¸æŠž
+ * OUTPUT : å‡ºåŠ›
  */
 module SELECTER4(INPUT0, INPUT1, INPUT2, INPUT3, SELECT, OUTPUT);
 	input  [3:0] INPUT0;

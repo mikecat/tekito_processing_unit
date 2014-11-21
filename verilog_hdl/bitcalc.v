@@ -1,9 +1,9 @@
-/* ƒrƒbƒg‰‰ŽZŠí
- * INPUT1  : “ü—Í1
- * INPUT2  : “ü—Í2
+/* ãƒ“ãƒƒãƒˆæ¼”ç®—å™¨
+ * INPUT1  : å…¥åŠ›1
+ * INPUT2  : å…¥åŠ›2
  * KIND    : 00->INPUT1 01->OR 10->AND 11->XOR
- * OUTPUT  : o—Í
- * IS_ZERO : o—Í‚Ìƒrƒbƒg‚ª‘S‚Ä0‚©
+ * OUTPUT  : å‡ºåŠ›
+ * IS_ZERO : å‡ºåŠ›ã®ãƒ“ãƒƒãƒˆãŒå…¨ã¦0ã‹
  */
 module BITCALC(INPUT1, INPUT2, KIND, OUTPUT, IS_ZERO);
 	input  [3:0] INPUT1;

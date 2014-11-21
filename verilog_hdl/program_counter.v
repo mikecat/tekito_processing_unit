@@ -1,9 +1,9 @@
-/* ƒvƒƒOƒ‰ƒ€ƒJƒEƒ“ƒ^
- * RESET      : ”ñ“¯ŠúƒŠƒZƒbƒg 0‚ÅƒŠƒZƒbƒg
- * CLOCK      : ƒNƒƒbƒN —§‚¿ã‚ª‚è‚ÅƒJƒEƒ“ƒg/ƒ[ƒh
- * ADDR_IN    : ƒ[ƒh‚·‚é’l
- * ADDR_WRITE : ƒNƒƒbƒN—§‚¿ã‚ª‚èŽž0‚È‚çƒCƒ“ƒNƒŠƒƒ“ƒgA1‚È‚çƒ[ƒh
- * ADDR_OUT   : ƒAƒhƒŒƒXo—Í
+/* ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚«ã‚¦ãƒ³ã‚¿
+ * RESET      : éžåŒæœŸãƒªã‚»ãƒƒãƒˆ 0ã§ãƒªã‚»ãƒƒãƒˆ
+ * CLOCK      : ã‚¯ãƒ­ãƒƒã‚¯ ç«‹ã¡ä¸ŠãŒã‚Šã§ã‚«ã‚¦ãƒ³ãƒˆ/ãƒ­ãƒ¼ãƒ‰
+ * ADDR_IN    : ãƒ­ãƒ¼ãƒ‰ã™ã‚‹å€¤
+ * ADDR_WRITE : ã‚¯ãƒ­ãƒƒã‚¯ç«‹ã¡ä¸ŠãŒã‚Šæ™‚0ãªã‚‰ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆã€1ãªã‚‰ãƒ­ãƒ¼ãƒ‰
+ * ADDR_OUT   : ã‚¢ãƒ‰ãƒ¬ã‚¹å‡ºåŠ›
  */
 module PROGRAM_COUNTER (RESET, CLOCK, ADDR_IN, ADDR_WRITE, ADDR_OUT);
 	input        RESET;
@@ -14,12 +14,12 @@ module PROGRAM_COUNTER (RESET, CLOCK, ADDR_IN, ADDR_WRITE, ADDR_OUT);
 
 	reg    [5:0] ADDR_OUT;
 
-	// ”ñ“¯ŠúƒŠƒZƒbƒg
+	// éžåŒæœŸãƒªã‚»ãƒƒãƒˆ
 	always @(~RESET) begin
 		ADDR_OUT <= 6'b0;
 	end
 
-	// ƒJƒEƒ“ƒg
+	// ã‚«ã‚¦ãƒ³ãƒˆ
 	always @(posedge CLOCK) begin
 		if (RESET) begin
 			ADDR_OUT <= ADDR_WRITE ? ADDR_IN : (ADDR_OUT + 6'b1);

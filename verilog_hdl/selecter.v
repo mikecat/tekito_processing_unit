@@ -1,8 +1,8 @@
-/* �Z���N�^
- * INPUT0 : 0�̎��ɏo�͂���f�[�^
- * INPUT1 : 1�̎��ɏo�͂���f�[�^
- * SELECT : �I��
- * OUTPUT : �o��
+/* セレクタ
+ * INPUT0 : 0の時に出力するデータ
+ * INPUT1 : 1の時に出力するデータ
+ * SELECT : 選択
+ * OUTPUT : 出力
  */
 module SELECTER(INPUT0, INPUT1, SELECT, OUTPUT);
 	input  [3:0] INPUT0;

@@ -1,6 +1,6 @@
-/* ƒŒƒWƒXƒ^‘‚«ž‚Ý§ŒäŠí
- * POS   : ‘‚«ž‚ÝˆÊ’uƒf[ƒ^“ü—Í
- * WRITE : ‘‚«ž‚ÝˆÊ’uo—Í
+/* ãƒ¬ã‚¸ã‚¹ã‚¿æ›¸ãè¾¼ã¿åˆ¶å¾¡å™¨
+ * POS   : æ›¸ãè¾¼ã¿ä½ç½®ãƒ‡ãƒ¼ã‚¿å…¥åŠ›
+ * WRITE : æ›¸ãè¾¼ã¿ä½ç½®å‡ºåŠ›
  */
 module REGWRITE_CONTROLLER(POS, WRITE);
 	input  [1:0] POS;

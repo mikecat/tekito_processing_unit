@@ -1,11 +1,11 @@
-/* ƒŒƒWƒXƒ^‘‚«ž‚Ýƒf[ƒ^‘I‘ðŠí
- * ORDER  : –½—ß
- * BC     : ƒrƒbƒg‰‰ŽZ‚ÌŒ‹‰Ê
- * ADD    : ‰ÁŒ¸ŽZ‚ÌŒ‹‰Ê
- * SUBC   : ƒTƒu‰‰ŽZ‚ÌŒ‹‰Ê
- * EXT    : ŠO•”“ü—Í
- * REG    : ƒŒƒWƒXƒ^‚Ì’l
- * OUTPUT : o—Í
+/* ãƒ¬ã‚¸ã‚¹ã‚¿æ›¸ãè¾¼ã¿ãƒ‡ãƒ¼ã‚¿é¸æŠžå™¨
+ * ORDER  : å‘½ä»¤
+ * BC     : ãƒ“ãƒƒãƒˆæ¼”ç®—ã®çµæžœ
+ * ADD    : åŠ æ¸›ç®—ã®çµæžœ
+ * SUBC   : ã‚µãƒ–æ¼”ç®—ã®çµæžœ
+ * EXT    : å¤–éƒ¨å…¥åŠ›
+ * REG    : ãƒ¬ã‚¸ã‚¹ã‚¿ã®å€¤
+ * OUTPUT : å‡ºåŠ›
  */
 module WRITEDATA_SEL(ORDER, BC, ADD, SUBC, EXT, REG, OUTPUT);
 	input  [7:0] ORDER;

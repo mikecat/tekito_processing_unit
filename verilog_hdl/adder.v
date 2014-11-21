@@ -1,9 +1,9 @@
-/* ‰ÁŒ¸ŽZŠí
- * INPUT1 : ‘«‚³‚ê‚é”/ˆø‚©‚ê‚é”
- * INPUT2 : ‘«‚·”/ˆø‚­”
- * DOSUB  : 0‚È‚ç‘«‚µŽZA1‚È‚çˆø‚«ŽZ
- * OUTPUT : ŒvŽZŒ‹‰Ê
- * CARRY  : ŒvŽZŒ‹‰Ê‚ÌŒ…‚ ‚Ó‚ê
+/* åŠ æ¸›ç®—å™¨
+ * INPUT1 : è¶³ã•ã‚Œã‚‹æ•°/å¼•ã‹ã‚Œã‚‹æ•°
+ * INPUT2 : è¶³ã™æ•°/å¼•ãæ•°
+ * DOSUB  : 0ãªã‚‰è¶³ã—ç®—ã€1ãªã‚‰å¼•ãç®—
+ * OUTPUT : è¨ˆç®—çµæžœ
+ * CARRY  : è¨ˆç®—çµæžœã®æ¡ã‚ãµã‚Œ
  */
 module ADDER(INPUT1, INPUT2, DOSUB, OUTPUT, CARRY);
 	input  [3:0] INPUT1;

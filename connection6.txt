@@ -1,30 +1,30 @@
-    „¡„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„¢
-  „¡„©„Ÿ„¦„Ÿ„©„¦„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„¢„ 
-  „ „   „   „ „                       „     „¡„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„¢        „ „ 
-  „ „   „   „ „   „¡„Ÿ„Ÿ„Ÿ„Ÿ„¢        „¤„Ÿ¨„ 011x11xx  11xxxxxx„         „ „ 
-  „ „   „   „ „   „ Bit-calc„   „¡„Ÿ„Ÿ„Ÿ„Ÿ¨„ 00xxxxxx„¡„Ÿ„Ÿ„Ÿ„Ÿ„£        „ „ 
-  „ „   „   „ „¤¨„ IN1     „   „     „¡„Ÿ¨„ 010xxxxx„   „¡„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„¢„ „ 
-  „ „   „   „¤„Ÿ¨„ IN2  OUT„¥„Ÿ„£    „¥„Ÿ¨„ 011x00xx„   „   Register  „ „ „ 
-  „ „   „ M[5:4]¨„ SEL  FLG„   M[5:2]„©„Ÿ¨„ 10xxxxxx„   „             „ „ „ 
-  „ „   „         „¤„Ÿ„Ÿ„Ÿ„Ÿ„£     EXT„©„Ÿ¨„ 011x11xx„¥¨„ IN      OUT1„¥„£„ 
-  „ „   „                             „ „¡¨„ 011x01xx„   „             „   „ 
-  „ „   „                             „ „   „¤„Ÿ„Ÿ„Ÿ„Ÿ„£  „             „   „ 
-  „ „   „                 „¡„Ÿ„Ÿ„Ÿ„Ÿ„¢„ „                 „         OUT2„¥„Ÿ„£
-  „ „   „                 „ Adder   „ „ „                 „             „ 
-  „ „   „¤„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ¨„ IN1  OUT„¥„£„             „¡¨„ IN-SEL      „ 
-  „ „¤AND M[5]„ŸXOR M[4]¨„ IN2  FLG„   „             „   „             „ 
-  „                 M[4]¨„ C-IN    „   „             „   „             „ 
-  „                       „¤„Ÿ„Ÿ„Ÿ„Ÿ„£  „       M[1:0]„¨¨„ OUT-SEL1    „ 
-  „                                     „       M[3:2]„Ÿ¨„ OUT-SEL2    „ 
-  „                     „¡„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„¢  „                 „¤„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„£
-  „¤„Ÿ„Ÿ„Ÿ„Ÿ„¦„ŸNOT „Ÿ¨„ M[4]=0 OUT„¥„Ÿ„£
-            „¥„ŸSHIFT ¨„ M[4]=1 FLG„ 
-            „           „¤„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„£                          „¡„Ÿ„Ÿ„Ÿ„¢
-            „           „¡„Ÿ„Ÿ„Ÿ„Ÿ„¢                    M[5:0]¨„ IN  PC„ 
-            „           „ EXT-OUT „         M[7:6]==11 && FLG ¨„ EN    „ 
-            „¤„Ÿ„Ÿ„Ÿ„Ÿ¨„ DAT     „                             „¤„Ÿ„Ÿ„Ÿ„£
-           M==011x11xx¨„ EN      „ 
-                  M[4]¨„ SEL     „ 
-                        „¤„Ÿ„Ÿ„Ÿ„Ÿ„£
+    â”Œâ”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+  â”Œâ”¼â”€â”¬â”€â”¼â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”â”‚
+  â”‚â”‚  â”‚  â”‚â”‚                      â”‚    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”        â”‚â”‚
+  â”‚â”‚  â”‚  â”‚â”‚  â”Œâ”€â”€â”€â”€â”        â””â”€â†’â”‚011x11xx  11xxxxxxâ”‚        â”‚â”‚
+  â”‚â”‚  â”‚  â”‚â”‚  â”‚Bit-calcâ”‚  â”Œâ”€â”€â”€â”€â†’â”‚00xxxxxxâ”Œâ”€â”€â”€â”€â”˜        â”‚â”‚
+  â”‚â”‚  â”‚  â”‚â””â†’â”‚IN1     â”‚  â”‚    â”Œâ”€â†’â”‚010xxxxxâ”‚  â”Œâ”€â”€â”€â”€â”€â”€â”â”‚â”‚
+  â”‚â”‚  â”‚  â””â”€â†’â”‚IN2  OUTâ”œâ”€â”˜    â”œâ”€â†’â”‚011x00xxâ”‚  â”‚  Register  â”‚â”‚â”‚
+  â”‚â”‚  â”‚M[5:4]â†’â”‚SEL  FLGâ”‚  M[5:2]â”¼â”€â†’â”‚10xxxxxxâ”‚  â”‚            â”‚â”‚â”‚
+  â”‚â”‚  â”‚        â””â”€â”€â”€â”€â”˜     EXTâ”¼â”€â†’â”‚011x11xxâ”œâ†’â”‚IN      OUT1â”œâ”˜â”‚
+  â”‚â”‚  â”‚                            â”‚â”Œâ†’â”‚011x01xxâ”‚  â”‚            â”‚  â”‚
+  â”‚â”‚  â”‚                            â”‚â”‚  â””â”€â”€â”€â”€â”˜  â”‚            â”‚  â”‚
+  â”‚â”‚  â”‚                â”Œâ”€â”€â”€â”€â”â”‚â”‚                â”‚        OUT2â”œâ”€â”˜
+  â”‚â”‚  â”‚                â”‚Adder   â”‚â”‚â”‚                â”‚            â”‚
+  â”‚â”‚  â””â”€â”€â”€â”€â”€â”€â”€â†’â”‚IN1  OUTâ”œâ”˜â”‚            â”Œâ†’â”‚IN-SEL      â”‚
+  â”‚â””AND M[5]â”€XOR M[4]â†’â”‚IN2  FLGâ”‚  â”‚            â”‚  â”‚            â”‚
+  â”‚                M[4]â†’â”‚C-IN    â”‚  â”‚            â”‚  â”‚            â”‚
+  â”‚                      â””â”€â”€â”€â”€â”˜  â”‚      M[1:0]â”´â†’â”‚OUT-SEL1    â”‚
+  â”‚                                    â”‚      M[3:2]â”€â†’â”‚OUT-SEL2    â”‚
+  â”‚                    â”Œâ”€â”€â”€â”€â”€â”  â”‚                â””â”€â”€â”€â”€â”€â”€â”˜
+  â””â”€â”€â”€â”€â”¬â”€NOT â”€â†’â”‚M[4]=0 OUTâ”œâ”€â”˜
+            â”œâ”€SHIFT â†’â”‚M[4]=1 FLGâ”‚
+            â”‚          â””â”€â”€â”€â”€â”€â”˜                          â”Œâ”€â”€â”€â”
+            â”‚          â”Œâ”€â”€â”€â”€â”                    M[5:0]â†’â”‚IN  PCâ”‚
+            â”‚          â”‚EXT-OUT â”‚        M[7:6]==11 && FLG â†’â”‚EN    â”‚
+            â””â”€â”€â”€â”€â†’â”‚DAT     â”‚                            â””â”€â”€â”€â”˜
+           M==011x11xxâ†’â”‚EN      â”‚
+                  M[4]â†’â”‚SEL     â”‚
+                        â””â”€â”€â”€â”€â”˜
 
 

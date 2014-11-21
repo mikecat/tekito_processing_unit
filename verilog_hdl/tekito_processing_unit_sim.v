@@ -2,7 +2,7 @@
 `include "tekito_processing_unit.v"
 
 /*
-// ���̐؂蕪���p�_�~�[
+// 問題の切り分け用ダミー
 module TEKITO_PROCESSING_UNIT(
 RESET, CLOCK, MEMORY_ADDR, MEMORY_DATA, INPUT0, INPUT1, OUTPUT0, OUTPUT1);
 	input        RESET;
